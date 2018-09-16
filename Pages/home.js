@@ -22,8 +22,6 @@ export function imageUpload_change(event) {
 	$w('#imageUpload').startUpload()
 	.then( (uploadedFile) => {
 		file = uploadedFile;
-		console.log(file);
 		$w('#image1').src = file.url;
-		console.log(visionRequest(file.url));
 	});
 }
