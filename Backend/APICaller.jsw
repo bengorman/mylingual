@@ -1,0 +1,26 @@
+const {google} = require('googleapis');
+const vision = google.vision;
+//const fs = require('fs');
+
+export function visionRequest(fileURL) {
+	const client = new vision.ImageAnnotatorClient();
+
+	const request = {
+  		image: {content: fileURL},
+	};
+
+	let entityArr = [];
+
+	client.objectLocalization(request)
+		.then(results => {
+			const objects = results[0].localizedObjectAnnotations;
+			objects.forEach(object => {
+				entityArr.push(object);
+			});
+		})
+		.catch(err => {
+			console.error('ERROR:', err);
+		});
+	
+	return entityArr;
+}
